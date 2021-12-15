@@ -1,6 +1,9 @@
 #include "stm8s.h"
 #include "milis.h"
 
+#include <stdio.h>
+#include "stm8_hd44780.h"
+
 /*#include "delay.h"*/
 /*#include <stdio.h>*/
 /*#include "../lib/uart.c"*/
@@ -24,12 +27,26 @@ void setup(void)
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);      // taktovani MCU na 16MHz
     GPIO_Init(LED_PORT, LED_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
     init_milis();
+    lcd_init();
+    lcd_gotoxy(0,0);
+    lcd_puts("Funguje to");
 }
 
 
 int main(void)
 {
     uint32_t time = 0;
+
+    char text[16];
+    uint8_t cislo = 357;
+
+    lcd_init();
+    lcd_gotoxy(0,0);
+    lcd_puts("Funguje to");
+ 
+    sprintf(text,"U=%d" , cislo, cislo);
+    lcd_gotoxy(0,0);
+    lcd_puts(text);
 
     setup();
     /*init_uart();*/
